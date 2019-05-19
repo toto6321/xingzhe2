@@ -1,0 +1,28 @@
+{
+  "name": "xingzhe_backend",
+  "version": "1.0.0",
+  "description": "backend for the XingZhe",
+  "main": "index.js",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toto6321/xingzhe2.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "toto",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/toto6321/xingzhe2/issues"
+  },
+  "homepage": "https://github.com/toto6321/xingzhe2#readme"
+}
