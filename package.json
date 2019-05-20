@@ -8,8 +8,11 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  },
   "scripts": {
+    "watch": "nodemon index.js",
     "test": "npm run test"
   },
   "repository": {
