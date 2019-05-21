@@ -4,6 +4,7 @@
   "description": "backend for the XingZhe",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0"
