@@ -1,5 +1,7 @@
 // Update with your config settings.
 
+require('dotenv').config({path: 'config.env'})
+
 module.exports = {
   development: {
     client: 'mysql',
