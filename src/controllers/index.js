@@ -1,11 +1,12 @@
-'use strict';
+'use strict'
 const userService = require('../services/user/userServices')
 const login = (ctx, next) => {
-  ctx.body = 'success!'
+  const token = get_jwt_token(ctx)
+  ctx.body = { token }
 }
 
 const signup = async (ctx, next) => {
-  const {email, code, phone} = ctx.query
+  const { email, code, phone } = ctx.query
   if (!email) ctx.status = 412
   const result = await userService.is_email_existed(email)
   const data = await userService.get_many_by_telephone(code, phone)
@@ -17,9 +18,9 @@ const signup = async (ctx, next) => {
 }
 
 const info = async (ctx, next) => {
-  let {code, phone} = ctx.query
+  let { code, phone } = ctx.query
   const data = await userService.get_many_by_telephone(code, phone)
-  ctx.body = {data}
+  ctx.body = { data }
 }
 
 const get_jwt_token = (ctx) => {
@@ -31,4 +32,3 @@ module.exports = {
   signup,
   info
 }
-

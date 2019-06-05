@@ -4,7 +4,7 @@ const is_email_existed = async email => {
   const result = await db('user')
     .select('id')
     .where('email', email)
-  return result;
+  return result
 }
 
 const get_many_by_telephone = async (tel_code = '86', telephone) => {
@@ -17,8 +17,7 @@ const get_many_by_telephone = async (tel_code = '86', telephone) => {
   return result
 }
 
-
 module.exports = {
   is_email_existed,
-  get_many_by_telephone,
+  get_many_by_telephone
 }

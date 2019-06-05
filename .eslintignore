@@ -1,0 +1,5 @@
+# sql files
+src/db/sql/
+
+# remove it from .eslintignore after converting raw sql to knex statement
+src/db/migrations

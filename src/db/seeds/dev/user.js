@@ -1,9 +1,9 @@
 if (!process.env.NODE_ENV) {
-  throw new Error(`NODE_ENV is unset!`)
+  throw new Error('NODE_ENV is unset!')
 }
 
 if (process.env.NODE_ENV !== 'development') {
-  throw new Error(`Seed is only allowed in development!`)
+  throw new Error('Seed is only allowed in development!')
 }
 
 const faker = require('faker')
@@ -39,4 +39,4 @@ const seed = async knex => {
   await knex('user').insert(mock_data)
 }
 
-module.exports = {seed}
+module.exports = { seed }
