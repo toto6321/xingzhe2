@@ -35,7 +35,7 @@ module.exports = {
       collate: 'utf8mb4_unicode_ci'
     },
     migrations: {
-      directory: './src/db//migrations/staging',
+      directory: './src/db/migrations/staging',
     },
     seeds: {
       directory: './src/db/seeds/staging',

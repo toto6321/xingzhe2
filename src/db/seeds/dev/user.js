@@ -18,7 +18,7 @@ const seed = async knex => {
     token: 'token'
   }]
 
-  // faker.setLocale('zh_CN')
+  faker.locale = 'zh_CN'
 
   for (let i = 0; i < 9; i++) {
     let user = {

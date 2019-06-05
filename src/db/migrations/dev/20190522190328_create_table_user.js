@@ -10,7 +10,7 @@ exports.up = function (knex, Promise) {
     "\t`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
     "\t`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
     "\tPRIMARY KEY(`id`)\n" +
-    ") ENGINE = InnoDB COMMENT 'table for user info';\n")
+    ") ENGINE = InnoDB COMMENT 'table for user info' CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n")
 };
 
 exports.down = function (knex, Promise) {
