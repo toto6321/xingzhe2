@@ -17,22 +17,24 @@ app.use((ctx, next) => {
       ctx.status = 401;
       ctx.body = 'Protected resource, use Authorization header to get access\n';
     } else {
-      throw err;
+      throw err
     }
-  });
-});
+  })
+})
 
 app.use(jwt({
   secret: process.env.JWT_SECRET
-}).unless({path: [/^\/api\/[^\/]*\/public.*/]}))
+}).unless({
+  path: [
+    /^\/api\/[^\/]*\/public.*/,
+    /^\/api\/.*\/user\/signup/
+  ]
+}))
 
 app.use(router.routes())
 app.use(router.allowedMethods())
 
 
-app.use(ctx => {
-  ctx.body = 'hello';
-});
 
 
 module.exports = app
