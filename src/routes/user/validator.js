@@ -5,26 +5,23 @@ const Joi = Router.Joi
 
 module.exports = {
   user_login: {
-    header: {
-      authorization: Joi.string().token()
-    },
     body: {
-      email: Joi.string().email(),
-      password: Joi.string()
+      email: Joi.string().email().required(),
+      password: Joi.string().required()
     },
     type: 'json',
   },
   user_signup: {
     body: {
-      email: Joi.string().email(),
-      phone: Joi.string(),
-      password: Joi.string()
+      email: Joi.string().email().required(),
+      phone: Joi.string().required(),
+      password: Joi.string().required()
     },
     type: 'json',
   },
   user_info: {
     query: {
-      phone: Joi.string()
+      phone: Joi.string().required()
     }
   },
   // insert your validator before the template

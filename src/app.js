@@ -30,6 +30,8 @@ app.use(jwt({
   path: [
     /^\/api\/[^/]*\/public.*/,
     /^\/api\/.*\/user\/signup/,
+    /^\/api\/.*\/user\/login/,
+    /^\/api\/.*\/user\/info/,
   ]
 }))
 
