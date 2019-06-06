@@ -14,6 +14,7 @@ module.exports = {
   },
   'rules': {
     'camelcase': 0,
-    'quotes': [1, 'single']
+    'quotes': [1, 'single'],
+    'comma-dangle': [0]
   }
 }

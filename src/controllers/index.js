@@ -6,8 +6,8 @@ const login = (ctx, next) => {
 }
 
 const signup = async (ctx, next) => {
-  const { email, code, phone } = ctx.query
-  if (!email) ctx.status = 412
+  const { email, code, phone } = ctx.request.body
+  if (!email || !phone) ctx.status = 412
   const result = await userService.is_email_existed(email)
   const data = await userService.get_many_by_telephone(code, phone)
   if (!result || data.length > 0) {
@@ -18,7 +18,7 @@ const signup = async (ctx, next) => {
 }
 
 const info = async (ctx, next) => {
-  let { code, phone } = ctx.query
+  let { code, phone } = ctx.request.body
   const data = await userService.get_many_by_telephone(code, phone)
   ctx.body = { data }
 }

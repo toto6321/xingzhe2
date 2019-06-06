@@ -2,7 +2,9 @@
 
 const Koa = require('koa')
 const jwt = require('koa-jwt')
-const router = require('./routes/index')
+const Router = require('koa-joi-router')
+let router = new Router()
+const routes = require('./routes/index')
 
 const app = new Koa()
 
@@ -27,11 +29,13 @@ app.use(jwt({
 }).unless({
   path: [
     /^\/api\/[^/]*\/public.*/,
-    /^\/api\/.*\/user\/signup/
+    /^\/api\/.*\/user\/signup/,
   ]
 }))
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+router.route(routes)
+const route_prefix = '/api/v1'
+router.prefix(route_prefix)
+app.use(router.middleware())
 
 module.exports = app
