@@ -1,23 +1,30 @@
 const db = require('../../db/')
 
-const is_email_existed = async email => {
-  const result = await db('user')
+const table = 'user'
+
+const get_many_by_email = async email => {
+  return db(table)
     .select('id')
     .where('email', email)
-  return result
+    .limit(1)
 }
 
 const get_many_by_telephone = async (code = '86', telephone) => {
-  const result = await db('user')
+  return db(table)
     .select('id', 'nickname')
     .where({
       code: code,
       telephone: telephone
     })
-  return result
+}
+
+const insert_one = async user => {
+  return db(table)
+    .insert(user, ['id'])
 }
 
 module.exports = {
-  is_email_existed,
-  get_many_by_telephone
+  get_many_by_email,
+  get_many_by_telephone,
+  insert_one
 }

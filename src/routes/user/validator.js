@@ -14,7 +14,8 @@ module.exports = {
   user_signup: {
     body: {
       email: Joi.string().email().required(),
-      phone: Joi.string().required(),
+      code: Joi.string().default('86').optional(),
+      phone: Joi.string().optional(),
       password: Joi.string().required()
     },
     type: 'json',

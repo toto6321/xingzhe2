@@ -1,7 +1,7 @@
 'use strict'
 const _ = require('lodash')
 const validator = require('./validator')
-const userController = require('../../controllers/index')
+const userController = require('../../controllers/user')
 
 let routes = [
   {

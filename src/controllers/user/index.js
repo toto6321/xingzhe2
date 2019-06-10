@@ -1,22 +1,22 @@
 'use strict'
-const userService = require('../services/user/userServices')
+const userService = require('../../services/user/userServices')
 const login = ctx => {
   const token = get_jwt_token(ctx)
   ctx.body = { token }
 }
 
 const signup = async ctx => {
-  const { email, code, phone } = ctx.request.body
-  if (!email || !phone) {
-    ctx.status = 412
-    return
-  }
-  const result = await userService.is_email_existed(email)
-  const data = await userService.get_many_by_telephone(code, phone)
-  if (!result || data.length > 0) {
+  const { email, password } = ctx.request.body
+  const data = await userService.get_many_by_email(email)
+  if (data.length > 0) {
+    const msg = `Email of ${email} is used!`
+    console.error('ERROR:', msg)
     ctx.status = 400
   } else {
-    ctx.status = 200
+    const data = { email, password }
+    const result = await userService.insert_one(data)
+    ctx.status = 201
+    ctx.body = { id: result[0] }
   }
 }
 
