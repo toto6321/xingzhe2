@@ -9,8 +9,6 @@ const is_pasword_matched = async (email, password) => {
     return false
   } else {
     const hash = info[0].password
-    console.debug('password:', password)
-    console.debug('hash:', hash)
     return bcrypt.compare(password, hash)
   }
 }

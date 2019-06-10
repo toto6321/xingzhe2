@@ -1,5 +1,6 @@
 'use strict'
 const bcrypt = require('bcrypt')
+const jsonWebToken = require('jsonwebtoken')
 
 const userDBService = require('../../services/user/userDBService')
 const userService = require('../../services/user/userService')
@@ -16,8 +17,16 @@ const login = async ctx => {
   } else {
     const is_matched = await userService.is_pasword_matched(email, password)
     if (is_matched) {
-      // todo sign token
+      const token = jsonWebToken.sign(
+        Object.assign({}, info[0]),
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_TOKEN_EXPIRATION_TIME }
+      )
       ctx.status = 200
+      ctx.body = {
+        id: info[0].id,
+        token: token
+      }
     } else {
       ctx.status = 401
     }
