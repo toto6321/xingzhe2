@@ -12,10 +12,9 @@ const seed = async knex => {
   let mock_data = [{
     nickname: 'demo',
     email: 'demo@xingzhe.com',
-    tel_code: '86',
+    code: '86',
     telephone: '12345678911',
     password: 'password',
-    token: 'token'
   }]
 
   faker.locale = 'zh_CN'
@@ -24,10 +23,9 @@ const seed = async knex => {
     let user = {
       nickname: faker.internet.userName(),
       email: faker.internet.email(),
-      tel_code: '86',
+      code: '86',
       telephone: faker.phone.phoneNumber().replace('-', ''),
       password: faker.internet.password(),
-      token: faker.internet.password()
     }
     mock_data.push(user)
   }

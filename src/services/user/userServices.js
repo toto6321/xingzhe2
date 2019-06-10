@@ -7,11 +7,11 @@ const is_email_existed = async email => {
   return result
 }
 
-const get_many_by_telephone = async (tel_code = '86', telephone) => {
+const get_many_by_telephone = async (code = '86', telephone) => {
   const result = await db('user')
     .select('id', 'nickname')
     .where({
-      tel_code: tel_code,
+      code: code,
       telephone: telephone
     })
   return result
