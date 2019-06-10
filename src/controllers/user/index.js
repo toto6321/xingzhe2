@@ -1,22 +1,39 @@
 'use strict'
 const bcrypt = require('bcrypt')
 
-const userService = require('../../services/user/userServices')
-const login = ctx => {
-  const token = get_jwt_token(ctx)
-  ctx.body = { token }
+const userDBService = require('../../services/user/userDBService')
+const userService = require('../../services/user/userService')
+
+const login = async ctx => {
+  const { email, password, code, phone } = ctx.request.body
+  const info = await userDBService.get_one_by_email(email)
+  console.debug('info', info)
+  if (!info) {
+    const msg = `User of email ${email} is not found!`
+    console.error('ERROR:', msg)
+    ctx.status = 400
+    ctx.body = { msg }
+  } else {
+    const is_matched = await userService.is_pasword_matched(email, password)
+    if (is_matched) {
+      // todo sign token
+      ctx.status = 200
+    } else {
+      ctx.status = 401
+    }
+  }
 }
 
 const signup = async ctx => {
   const { email, password } = ctx.request.body
-  const data = await userService.get_many_by_email(email)
-  if (data.length > 0) {
+  const data = await userDBService.get_one_by_email(email)
+  if (data) {
     const msg = `Email of ${email} is used!`
     console.error('ERROR:', msg)
     ctx.status = 400
   } else {
     const data = { email }
-    const result = await userService.insert_one(data).catch(e => {
+    const result = await userDBService.insert_one(data).catch(e => {
       console.error('ERROR:', e)
     })
 
@@ -32,7 +49,7 @@ const signup = async ctx => {
             console.error('email:', email)
           } else {
             console.debug('hash', hash)
-            userService.update_password_by_email(email, hash).catch(e => {
+            userDBService.update_password_by_email(email, hash).catch(e => {
               console.error('ERROR:', e)
             })
           }
@@ -48,7 +65,7 @@ const signup = async ctx => {
 const info = async ctx => {
   // eslint-disable-next-line no-unused-vars
   let { email, code, phone } = ctx.request.body
-  const data = await userService.get_many_by_telephone(code, phone)
+  const data = await userDBService.get_many_by_telephone(code, phone)
   ctx.body = { data }
 }
 

@@ -15,6 +15,7 @@ module.exports = {
   'rules': {
     'camelcase': 0,
     'quotes': [1, 'single'],
-    'comma-dangle': [0]
+    'comma-dangle': [0],
+    'no-unused-vars': [1]
   }
 }
