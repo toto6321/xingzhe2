@@ -2,19 +2,17 @@
 
 const Koa = require('koa')
 const jwt = require('koa-jwt')
-const errorHandler = require('koa-json-error')
-const Router = require('koa-joi-router')
-let router = new Router()
-const routes = require('./routes/index')
-
 const app = new Koa()
 
 if (!process.env.JWT_SECRET) {
   throw new Error('JWT SECRET hasn\'t been set!')
 }
 
-const options = require('./middlewares/error')
-app.use(errorHandler(options))
+const logger = require('./middlewares/log/index.js')
+app.use(logger)
+
+const errorHandler = require('./middlewares/error')
+app.use(errorHandler)
 
 // Custom 401 handling if you don't want to expose koa-jwt errors to users
 /*
@@ -43,9 +41,7 @@ app.use(jwt({
   ]
 }))
 
-router.route(routes)
-const route_prefix = '/api/v1'
-router.prefix(route_prefix)
+const router = require('./routes/index')
 app.use(router.middleware())
 
 module.exports = app

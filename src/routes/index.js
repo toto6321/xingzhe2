@@ -1,5 +1,6 @@
 'use strict'
 
+const Router = require('koa-joi-router')
 const _ = require('lodash')
 let routes = []
 
@@ -18,7 +19,7 @@ const public_routes = [
   {
     path: '/public',
     method: 'get',
-    handler: async (ctx, next) => {
+    handler: async ctx => {
       ctx.body = 'hello'
     }
   }
@@ -28,4 +29,10 @@ routes = _.concat(routes, public_routes)
 const user_routes = require('./user/index')
 routes = _.concat(routes, user_routes)
 
-module.exports = routes
+const router = new Router()
+router.route(routes)
+
+const route_prefix = '/api/v1'
+router.prefix(route_prefix)
+
+module.exports = router
