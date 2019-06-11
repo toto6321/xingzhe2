@@ -3,6 +3,7 @@
 const Koa = require('koa')
 const jwt = require('koa-jwt')
 const errorHandler = require('koa-json-error')
+const logger = require('./middlewares/log/index.js')
 const Router = require('koa-joi-router')
 let router = new Router()
 const routes = require('./routes/index')
@@ -12,6 +13,8 @@ const app = new Koa()
 if (!process.env.JWT_SECRET) {
   throw new Error('JWT SECRET hasn\'t been set!')
 }
+
+app.use(logger)
 
 const options = require('./middlewares/error')
 app.use(errorHandler(options))
