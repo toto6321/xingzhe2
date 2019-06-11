@@ -15,7 +15,7 @@ const login = async ctx => {
     ctx.status = 400
     ctx.body = { msg }
   } else {
-    const is_matched = await userService.is_pasword_matched(email, password)
+    const is_matched = await userService.is_password_matched(email, password)
     if (is_matched) {
       const token = jsonWebToken.sign(
         Object.assign({}, info[0]),
