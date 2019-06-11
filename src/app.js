@@ -2,7 +2,9 @@
 
 const Koa = require('koa')
 const jwt = require('koa-jwt')
-const router = require('./routes/index')
+const Router = require('koa-joi-router')
+let router = new Router()
+const routes = require('./routes/index')
 
 const app = new Koa()
 
@@ -14,7 +16,6 @@ if (!process.env.JWT_SECRET) {
 app.use((ctx, next) => {
   return next().catch((err) => {
     if (err.status === 401) {
-      ctx.status = 401
       ctx.body = 'Protected resource, use Authorization header to get access\n'
     } else {
       throw err
@@ -27,11 +28,15 @@ app.use(jwt({
 }).unless({
   path: [
     /^\/api\/[^/]*\/public.*/,
-    /^\/api\/.*\/user\/signup/
+    /^\/api\/.*\/user\/signup/,
+    /^\/api\/.*\/user\/login/,
+    /^\/api\/.*\/user\/info/,
   ]
 }))
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+router.route(routes)
+const route_prefix = '/api/v1'
+router.prefix(route_prefix)
+app.use(router.middleware())
 
 module.exports = app

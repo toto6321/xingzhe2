@@ -1,11 +1,31 @@
 'use strict'
 
-const Router = require('koa-router')
-const router = new Router()
-const userController = require('../controllers/index')
+const _ = require('lodash')
+let routes = []
 
-router.post('/api/v1/user/login', userController.login)
-router.post('/api/v1/user/signup', userController.signup)
-router.get('/api/v1/user/info', userController.info)
+const home_routes = [
+  {
+    path: '/',
+    method: 'get',
+    handler: async ctx => {
+      ctx.body = 'home'
+    }
+  }
+]
+routes = _.concat(routes, home_routes)
 
-module.exports = router
+const public_routes = [
+  {
+    path: '/public',
+    method: 'get',
+    handler: async (ctx, next) => {
+      ctx.body = 'hello'
+    }
+  }
+]
+routes = _.concat(routes, public_routes)
+
+const user_routes = require('./user/index')
+routes = _.concat(routes, user_routes)
+
+module.exports = routes

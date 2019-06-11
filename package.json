@@ -4,13 +4,16 @@
   "description": "backend for the XingZhe",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "dotenv": "^8.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.16.5",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-joi-router": "^6.0.0",
     "koa-jwt": "^3.5.1",
-    "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
+    "md5": "^2.2.1",
     "mysql": "^2.17.1"
   },
   "devDependencies": {
