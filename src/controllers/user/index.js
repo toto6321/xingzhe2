@@ -8,7 +8,6 @@ const userService = require('../../services/user/userService')
 const login = async ctx => {
   const { email, password, code, phone } = ctx.request.body
   const info = await userDBService.get_one_by_email(email)
-  console.debug('info', info)
   if (!info) {
     const msg = `User of email ${email} is not found!`
     console.error('ERROR:', msg)

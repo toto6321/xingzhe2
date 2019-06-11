@@ -2,6 +2,7 @@
 
 const Koa = require('koa')
 const jwt = require('koa-jwt')
+const errorHandler = require('koa-json-error')
 const Router = require('koa-joi-router')
 let router = new Router()
 const routes = require('./routes/index')
@@ -12,16 +13,24 @@ if (!process.env.JWT_SECRET) {
   throw new Error('JWT SECRET hasn\'t been set!')
 }
 
+const options = require('./middlewares/error')
+app.use(errorHandler(options))
+
 // Custom 401 handling if you don't want to expose koa-jwt errors to users
+/*
 app.use((ctx, next) => {
   return next().catch((err) => {
     if (err.status === 401) {
-      ctx.body = 'Protected resource, use Authorization header to get access\n'
+      ctx.body = err
+      // const message = 'Protected resource, use Authorization header to get access\n'
+      // ctx.body = err.originalError ? err.originalError.message
+      //   : err.message ? err.message : message
     } else {
       throw err
     }
   })
 })
+*/
 
 app.use(jwt({
   secret: process.env.JWT_SECRET
