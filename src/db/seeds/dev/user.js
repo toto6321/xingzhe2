@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 const faker = require('faker')
+const table = 'user'
 
 const seed = async knex => {
   let mock_data = [{
@@ -31,10 +32,10 @@ const seed = async knex => {
   }
 
   // delete all data there
-  await knex('user').truncate()
+  await knex(table).truncate()
 
   // insert mock data
-  await knex('user').insert(mock_data)
+  await knex(table).insert(mock_data)
 }
 
 module.exports = { seed }
