@@ -29,6 +29,9 @@ routes = _.concat(routes, public_routes)
 const user_routes = require('./user/index')
 routes = _.concat(routes, user_routes)
 
+const photo_routes = require('./photo/index')
+routes = _.concat(routes, photo_routes)
+
 const router = new Router()
 router.route(routes)
 

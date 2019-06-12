@@ -1,0 +1,11 @@
+create TABLE IF NOT EXISTS `user` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+	`nickname` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'nickname',
+	`email` VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'email',
+	`code` VARCHAR(10) NOT NULL DEFAULT '86' COMMENT 'telephone code',
+	`telephone` VARCHAR(20) NOT NULL DEFAULT '' COMMENT 'telephone number',
+	`password` VARCHAR(100) NOT NULL DEFAULT '' COMMENT 'encrypted password',
+	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON update CURRENT_TIMESTAMP,
+	PRIMARY KEY(`id`)
+) ENGINE = InnoDB COMMENT 'table for user info' CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
