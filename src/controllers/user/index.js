@@ -1,6 +1,7 @@
 'use strict'
 const bcrypt = require('bcrypt')
 const jsonWebToken = require('jsonwebtoken')
+const logger = require('../../middlewares/log/init')
 
 const userDBService = require('../../services/user/userDBService')
 const userService = require('../../services/user/userService')
@@ -10,7 +11,7 @@ const login = async ctx => {
   const info = await userDBService.get_one_by_email(email)
   if (!info) {
     const msg = `User of email ${email} is not found!`
-    console.error('ERROR:', msg)
+    logger.warn('WARN:', msg)
     ctx.status = 400
     ctx.body = { msg }
   } else {
@@ -35,30 +36,30 @@ const login = async ctx => {
 const signup = async ctx => {
   const { email, password } = ctx.request.body
   const data = await userDBService.get_one_by_email(email)
-  if (data) {
+  if (data && data.length > 0) {
     const msg = `Email of ${email} is used!`
-    console.error('ERROR:', msg)
+    logger.warn('ERROR:', msg)
     ctx.status = 400
   } else {
     const data = { email }
     const result = await userDBService.insert_one(data).catch(e => {
-      console.error('ERROR:', e)
+      logger.error('ERROR:', e)
     })
 
     bcrypt.genSalt(12, (err, salt) => {
-      console.debug('salt', salt)
+      logger.debug('salt', salt)
       if (err) {
-        console.error('ERROR:', err)
-        console.error('email:', email)
+        logger.error('ERROR:', err)
+        logger.debug('email:', email)
       } else {
         bcrypt.hash(password, salt, (err2, hash) => {
           if (err2) {
-            console.error('ERROR:', err2)
-            console.error('email:', email)
+            logger.error('ERROR:', err2)
+            logger.debug('email:', email)
           } else {
-            console.debug('hash', hash)
+            logger.debug('hash', hash)
             userDBService.update_password_by_email(email, hash).catch(e => {
-              console.error('ERROR:', e)
+              logger.error('ERROR:', e)
             })
           }
         })
