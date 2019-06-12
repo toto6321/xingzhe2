@@ -19,6 +19,11 @@ let routes = [
     method: 'delete',
     validate: validator.delete,
     handler: controller.delete_photos
+  }, {
+    path: '/upload',
+    method: 'post',
+    validate: validator.upload_photos,
+    handler: controller.upload_photos
   }
 ]
 
